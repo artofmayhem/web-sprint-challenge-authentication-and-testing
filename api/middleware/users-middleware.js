@@ -8,24 +8,20 @@ const checkIfUnique = async (req, res, next) => {//eslint-disable-line no-unused
   try {
     //brings in the username from the request
     const username = req.body.username;
-
+    console.log(username)
     //looks for the username in the database
-    const user = await Users.findByUserName({ username: username });
-
-    //if user already exists in the db display message: "User already exists"
-    if (user) {
-      res.status(400).json({
-        message: "User already exists",
-      });
-    } else {
-      // otherwise continue to next middleware
+    const user = await Users.findByUserName({ username });
+    console.log(user)
+     //if user already exists in db display message: "User already exists"
+     if (user) {
+      return res.status(409).json({message: 'User already exists'});
+  } else {
       return next();
-    }
-  } catch (err) {
-    return next(err);
   }
+} catch (err) {
+  return next(err);
+}
 };
-
 
 //check to see if payload contains username and password on login or register//
 const checkIfPayload = async (req, res, next) => {

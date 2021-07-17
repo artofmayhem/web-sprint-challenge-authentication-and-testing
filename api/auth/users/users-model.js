@@ -8,7 +8,8 @@ function find() {
 function findByUserName(userName) {
     return db('users as u')
         .select('*')
-        .where('u.userName', userName)
+        .where('u.username', userName)
+        
 }
 
 function findById(id) {
