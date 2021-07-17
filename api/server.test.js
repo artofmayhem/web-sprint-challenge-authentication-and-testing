@@ -48,16 +48,16 @@ describe('users integration', () => {
     
       })
 
-          //check to see if the username is available
-    it("check to ensure username is unique prior to registration", async () => {
-      //test duplicate username. if user exists expect 400 error "username taken"
-      const res = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
-        expect(res.statusCode).toBe(200)
-        expect(res.type).toBe("application/json")
-        expect(res.body.message).toBe("You've been successfully registered")
+    //       //check to see if the username is available
+    // it("check to ensure username is unique prior to registration", async () => {
+    //   //test duplicate username. if user exists expect 400 error "username taken"
+    //   const res = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
+    //     expect(res.statusCode).toBe(200)
+    //     expect(res.type).toBe("application/json")
+    //     expect(res.body.message).toBe("You've been successfully registered")
   
-      const res2 = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
-      expect(res2.statusCode).toBe(409)
-      expect(res2.body.message).toBe("User already exists")
-    })
+    //   const res2 = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
+    //   expect(res2.statusCode).toBe(409)
+    //   expect(res2.body.message).toBe("User already exists")
+    // })
 })
