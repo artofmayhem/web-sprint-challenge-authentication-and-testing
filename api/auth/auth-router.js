@@ -1,4 +1,19 @@
 const router = require('express').Router();
+//don't forget your users model
+const Users = require('./users/users-model')
+
+//bring in middleware
+const {
+  checkIfUnique,
+  checkIfPayload,
+  checkIfUserNameExists
+} = require('../middleware/users-middleware')
+
+//bring in token handling imports
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const {JWT_SECRET} = require('../auth/secrets/secrets')
+
 
 router.post('/register', (req, res) => {
   res.end('implement register, please!');
