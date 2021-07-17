@@ -1,6 +1,6 @@
 //middleware requires Users model and bcrypt
 const Users = require("../auth/users/users-model");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 
 //check to see if user name requested is unique//
@@ -33,7 +33,7 @@ const checkIfPayload = async (req, res, next) => {
   //if username and password are not in the payload, return error message: "Missing username or password"
   if (!username || !password) {
     return res.status(404).json({
-      message: "Missing username or password",
+      message: "username and password required",
     });
   } else {
     //return registration success message: "You've been successfully registered"
@@ -54,7 +54,7 @@ const checkIfUserNameExists = async (req, res, next) => {//eslint-disable-line n
                 //if user already exists in the db display message: "User already exists"
                 if (user) {
                     res.status(400).json({
-                        message: "User already exists",
+                        message: "username taken",
                     });
                 }   
 

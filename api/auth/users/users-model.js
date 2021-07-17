@@ -9,6 +9,11 @@ function findByUserName(userName) {
     return db('users as u')
         .select('*')
         .where('u.username', userName)
+        .first(
+            "id",
+            "username",
+            "password"
+        )
         
 }
 
@@ -16,6 +21,11 @@ function findById(id) {
     return db('users as u')
         .select('*')
         .where('u.id', id)
+        .first(
+            'id',
+            'username',
+            'password'
+        )
 }
 
 function create(newUser) {

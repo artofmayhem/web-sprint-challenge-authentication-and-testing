@@ -9,7 +9,7 @@ const {
 } = require("../middleware/users-middleware");
 
 //token handling imports
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../auth/secrets/secrets");
 
@@ -54,7 +54,7 @@ router.post(
         password: await bcrypt.hash(password, 8),
       });
       res.status(201).json({
-        newUser,
+        newUser
       });
     } catch (err) {
       next(err);
@@ -100,7 +100,6 @@ router.post(
 
       const payload = {
         username: req.user.username,
-        subject: req.user.id,
       };
       const token = jwt.sign(payload, JWT_SECRET, options);
       res.status(201).json({
