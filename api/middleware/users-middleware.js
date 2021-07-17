@@ -36,15 +36,14 @@ const checkIfPayload = async (req, res, next) => {
 
   //if username and password are not in the payload, return error message: "Missing username or password"
   if (!username || !password) {
-    res.status(400).json({
+    return res.status(404).json({
       message: "Missing username or password",
     });
   } else {
     //return registration success message: "You've been successfully registered"
-    res.status(200).json({ message: "You've been successfully registered" });
+     res.status(200).json({ message: "You've been successfully registered" });
   }
-
-  return next();
+    return next();
 };
 
 
