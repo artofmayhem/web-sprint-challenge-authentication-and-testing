@@ -95,16 +95,15 @@ router.post(
     try {
       const options = {
         expiresIn: "1d",
-        algorithm: "HS256",
       };
 
       const payload = {
         username: req.user.username,
       };
-      const token = jwt.sign(payload, JWT_SECRET, options);
+      const token = jwt.sign(payload.username, JWT_SECRET, options);
       res.status(201).json({
         message: "welcome, " + req.user.username,
-        token,
+        token: token
       });
     } catch (err) {
       next(err);

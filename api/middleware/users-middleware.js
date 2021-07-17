@@ -47,23 +47,24 @@ const checkIfPayload = async (req, res, next) => {
 const checkIfUserNameExists = async (req, res, next) => {//eslint-disable-line no-unused-vars
         //bring in the username from the request
         const username = req.body.username;
+        const password = req.body.password;
         //looks for the username in the database
         const user = await Users.findByUserName({ username: username });
             try { 
 
                 //if user already exists in the db display message: "User already exists"
-                if (user) {
-                    res.status(400).json({
-                        message: "username taken",
+                if (!user) {
+                    res.status(401).json({
+                        message: "invalid credentials",
                     });
                 }   
 
                 //validate the password next
-                const validatePassword = await bcrypt.compare(req.body.password, user.password);
+                const validatePassword = await bcrypt.compare(password, user.password);
                 //if password is incorrect display message: "Incorrect password"
                 if (!validatePassword) {
-                    res.status(400).json({
-                        message: "Incorrect password",
+                    res.status(401).json({
+                        message: "invalid credentials",
                     });
                 }
 
