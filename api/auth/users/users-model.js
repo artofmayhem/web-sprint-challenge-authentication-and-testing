@@ -1,26 +1,25 @@
-const db = require('../../../data/dbConfig');
+const db = require('../../../data/dbConfig')
 
 function find() {
-    return db('users as u')
+    return db('users')
         .select('*')
 }
 
-function findByUserName(userName) {
-    return db('users as u')
-        .select('*')
-        .where('u.username', userName)
+
+function findById(id){
+    return db('users')
+        .where('id', id)
         .first(
             "id",
             "username",
             "password"
         )
-        
 }
 
-function findById(id) {
-    return db('users as u')
-        .select('*')
-        .where('u.id', id)
+
+function findByUsername(username){
+    return db('users')
+        .where("username", username)
         .first(
             'id',
             'username',
@@ -28,16 +27,15 @@ function findById(id) {
         )
 }
 
-function create(newUser) {
-    const [id] = db('users as u')
-        .insert(newUser)
-        return findById(id)
+async function create(user){
+    const [id] = await db('users').insert(user)
+    return findById(id)
 }
 
-
 module.exports = {
-    find: find,
-    findByUserName: findByUserName,
-    findById: findById,
-    create: create
+    find,
+    findById,
+    findByUsername,
+    create
+
 }

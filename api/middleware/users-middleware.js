@@ -12,9 +12,9 @@ const checkIfUnique = async (req, res, next) => {//eslint-disable-line no-unused
     //looks for the username in the database
     const user = await Users.findByUserName({ username });
     console.log(user)
-     //if user already exists in db display message: "User already exists"
+     //if user already exists in db display message: "username taken"
      if (user) {
-      return res.status(409).json({message: 'User already exists'});
+      return res.status(409).json({message: 'username taken'});
   } else {
       return next();
   }
@@ -49,7 +49,7 @@ const checkIfUserNameExists = async (req, res, next) => {//eslint-disable-line n
         const username = req.body.username;
         const password = req.body.password;
         //looks for the username in the database
-        const user = await Users.findByUserName({ username: username });
+        const user = await Users.findByUserName({ username });
             try { 
 
                 //if user already exists in the db display message: "User already exists"

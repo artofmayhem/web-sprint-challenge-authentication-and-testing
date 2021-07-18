@@ -1,6 +1,6 @@
 // Write your tests here
 const server = require('./server')
-const db = require('../data/dbConfig')
+const db  = require('../data/dbConfig')
 const supertest = require('supertest')
 
 beforeEach(async () => {
@@ -11,12 +11,11 @@ beforeEach(async () => {
 afterAll(async () => {
   await db.destroy()
 })
-
 test('sanity', () => {
   expect(true).toBe(true)
 })
 
-describe('users integration', () => {
+describe('POSTing for /api/auth/register', () => {
      //check to see if payload contains required fields
    it("check to ensure both username and password are available on  registration", async () => {
   const res = await supertest(server).post("/api/auth/register").send({ username: 'Captain Marvel' })
@@ -24,40 +23,51 @@ describe('users integration', () => {
   expect(res.type).toBe("application/json")
   expect(res.body.message).toBe("username and password required")
 
-  const res2 = await supertest(server).post("/api/auth/register").send({ password: '' })
+  const res2 = await supertest(server).post("/api/auth/register").send({ password: 'somarvelous12' })
   expect(res2.statusCode).toBe(404)
   expect(res2.type).toBe("application/json")
   expect(res2.body.message).toBe("username and password required")
 
-  const res3 = await supertest(server).post("/api/auth/register").send({ username: 'Captain Marvel', password: 'SuperSecretPassword' })
-  expect(res3.statusCode).toBe(200)
-  expect(res3.type).toBe("application/json")
+  const res3 = await supertest(server).post("/api/auth/register").send({ username: 'Captain Marvel', password: 'somarvelous12' })
+  expect(res3.statusCode).toBe(201)
   expect(res3.body.message).toBe("You've been successfully registered") 
 })
 
-      //check to see that user can successfully login
-      it("check to ensure user login is successful", async () => {
-        const res3 = await supertest(server).post("/api/auth/register").send({ username: 'Scott Summers', password: 'XmAN4EVAH!' })
-        expect(res3.statusCode).toBe(200)
-        expect(res3.type).toBe("application/json")
-        expect(res3.body.message).toBe("You've been successfully registered") 
-    
-        const res4 = await supertest(server).post("/api/auth/login").send({ username: 'Scott Summers', password: 'XmAN4EVAH!' })
-        expect(res4.statusCode).toBe(200)
-        expect(res4.body.message).toBe("You've been successfully registered")
-    
-      })
+describe('POSTing for /api/auth/login', () => {
 
-    //       //check to see if the username is available
-    // it("check to ensure username is unique prior to registration", async () => {
-    //   //test duplicate username. if user exists expect 400 error "username taken"
-    //   const res = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
-    //     expect(res.statusCode).toBe(200)
-    //     expect(res.type).toBe("application/json")
-    //     expect(res.body.message).toBe("You've been successfully registered")
-  
-    //   const res2 = await supertest(server).post("/api/auth/register").send({ username: 'Iron Man', password: 'iloveyou3000' })
-    //   expect(res2.statusCode).toBe(409)
-    //   expect(res2.body.message).toBe("User already exists")
-    // })
+  it('successfully logs in user', async () => {
+    await supertest(server)
+      .post('/api/auth/register')
+      .send({
+        username: 'Capt Marvel',
+        password: 'marvelous19'
+      })
+    const res = await supertest(server)
+      .post('/api/auth/login')
+      .send({
+        username: 'Capt Marvel',
+        password: 'marvelous19'
+      })
+    expect(res.statusCode).toBe(200)
+    expect(res.type).toBe("application/json")
+    expect(res.body.message).toBe('welcome, Capt Marvel')
+  })
+  it('responds with invalid credentials if password incorrect', async () => {
+    await supertest(server)
+      .post('/api/auth/register')
+      .send({
+        username: 'Capt Marvel',
+        password: 'marvelous19'
+      })
+    const res = await supertest(server)
+      .post('/api/auth/login')
+      .send({
+        username: 'Capt Marvel',
+        password: 'badpass'
+      })
+    expect(res.statusCode).toBe(401)
+    expect(res.type).toBe("application/json")
+    expect(res.body.message).toBe('invalid credentials')
+  })
 })
+  })
