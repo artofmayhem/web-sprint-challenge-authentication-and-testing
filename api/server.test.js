@@ -19,20 +19,21 @@ test("sanity", () => {
 describe("POSTing for /api/auth/register", () => {
   //check to see if payload contains required fields
   it("check to ensure both username and password are available on  registration", async () => {
+    //first pass no password
     const res = await supertest(server)
       .post("/api/auth/register")
       .send({ username: "Captain Marvel" });
     expect(res.statusCode).toBe(404);
     expect(res.type).toBe("application/json");
     expect(res.body.message).toBe("username and password required");
-
+    //second pass no username
     const res2 = await supertest(server)
       .post("/api/auth/register")
       .send({ password: "somarvelous12" });
     expect(res2.statusCode).toBe(404);
     expect(res2.type).toBe("application/json");
     expect(res2.body.message).toBe("username and password required");
-
+    //third pass with username and password
     const res3 = await supertest(server)
       .post("/api/auth/register")
       .send({ 
@@ -43,6 +44,7 @@ describe("POSTing for /api/auth/register", () => {
   });
 
   describe("POSTing for /api/auth/login", () => {
+    //registers and logs in a user
     it("successfully logs in user", async () => {
       await supertest(server).post("/api/auth/register").send({
         username: "Capt Marvel",
@@ -56,6 +58,7 @@ describe("POSTing for /api/auth/register", () => {
       expect(res.type).toBe("application/json");
       expect(res.body.message).toBe("welcome, Capt Marvel");
     });
+    //invalidates with bad password
     it("responds with invalid credentials if password incorrect", async () => {
       await supertest(server).post("/api/auth/register").send({
         username: "Capt Marvel",
