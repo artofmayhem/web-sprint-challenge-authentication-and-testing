@@ -63,6 +63,17 @@ Your finished project must include all of the following requirements (further in
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+    Sessions are created and managed by the server passing a cookie to the browser. this cookie is then used to identify the user. 
+    JSON Web Tokens are used to represent users and their permissions. They are a string of data that is signed by the server and then passed to the browser.
+
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+    `bcryptjs` uses a salt to make passwords more difficult to guess.
+
 3. How are unit tests different from integration and end-to-end testing?
+    Unit tests are run on a single node. They test the functionality of the code at a component unit/ component level .
+    Integration tests are run on a cluster of nodes. They test the functionality of how units/components work together.
+    End-to-end tests are run on a cluster of nodes. They test the overall site performance Chaos Monkey used and created by netflix is a prime example of how this works to maintain high levels of quality and consistency.
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
+    TDD is the process of writing tests before iteration of development code.
+
