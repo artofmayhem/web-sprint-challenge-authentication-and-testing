@@ -6,8 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../auth/secrets/secrets");
 
-router.post("/register", async (req, res, next) => {
-  //eslint-disable-line
+router.post("/register", async (req, res, next) => {//eslint-disable-line
   //res.end('implement register, please!');
   /*
     IMPLEMENT
@@ -34,20 +33,6 @@ router.post("/register", async (req, res, next) => {
     4- On FAILED registration due to the `username` being taken,
       the response body should include a string exactly as follows: "username taken".
   */
-  //   try {
-  //     const username = req.body.username;
-  //     const password = req.body.password;
-  //     const newUser = await Users.create({
-  //       username,
-  //       password: await bcrypt.hash(password, 8),
-  //     });
-  //     res.status(201).json({
-  //       newUser
-  //     });
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // }
 
   try {
     const { username, password } = req.body;
@@ -79,8 +64,7 @@ router.post("/register", async (req, res, next) => {
 
 
 
-router.post("/login", async (req, res, next) => {
-  //eslint-disable-line
+router.post("/login", async (req, res, next) => { //eslint-disable-line
   //res.end('implement login, please!');
   /*
     IMPLEMENT
@@ -105,22 +89,7 @@ router.post("/login", async (req, res, next) => {
     4- On FAILED login due to `username` not existing in the db, or `password` being incorrect,
       the response body should include a string exactly as follows: "invalid credentials".
   */
-  // try {
-  //   const options = {
-  //     expiresIn: "1d",
-  //   };
 
-  //   const payload = {
-  //     username: req.user.username,
-  //   };
-  //   const token = jwt.sign(payload.username, JWT_SECRET, options);
-  //   res.status(201).json({
-  //     message: "welcome, " + req.user.username,
-  //     token: token,
-  //   });
-  // } catch (err) {
-  //   next(err);
-  // }
   try {
     const { username, password } = req.body;
 

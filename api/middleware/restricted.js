@@ -14,6 +14,7 @@ module.exports = async (req, res, next) => {
     3- On invalid or expired token in the Authorization header,
       the response body should include a string exactly as follows: "token invalid".
   */
+//  TEST QUESTIONS 16, 17, 19
   try {
     const token = req.headers.authorization
 
