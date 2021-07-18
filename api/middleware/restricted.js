@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../auth/secrets/secrets");
 
 module.exports = async (req, res, next) => {
-  next();
+  //next();
   /*
     IMPLEMENT
 
