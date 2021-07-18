@@ -56,7 +56,7 @@ router.post("/register", async (req, res, next) => {//eslint-disable-line
       password: await bcrypt.hash(password, 3),
     });
 
-    res.status(201).json({message: "You've been successfully registered", newUser});
+    res.status(201).json(newUser);
   } catch (err) {
     next(err);
   }

@@ -40,7 +40,6 @@ describe("POSTing for /api/auth/register", () => {
         password: "somarvelous12" 
       });
     expect(res3.statusCode).toBe(201);
-    expect(res3.body.message).toBe("You've been successfully registered");
   });
 
   describe("POSTing for /api/auth/login", () => {
